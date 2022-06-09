@@ -1,13 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { Octokit } from '@octokit/rest';
+import httpError from '../utils/errorHandler/http-errors';
+import { RequestInterface } from '../utils/interface'
 import HttpError from '../utils/errorHandler/http-errors';
 
 //protecting route using a middleware function
-interface requestInterface extends Request {
-  octokit?: Octokit;
-}
 export const protect = async (
-  req: requestInterface,
+  req: RequestInterface,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -25,7 +24,7 @@ export const protect = async (
 
     if (!token) {
       return next(
-        new HttpError(
+        new httpError(
           'You authorized to access this route! Please provide your token',
           401
         )
@@ -42,7 +41,7 @@ export const protect = async (
     next();
   } catch (error) {
     // console.log(error);
-    return next(new HttpError('Authentication failed!', 403));
+    return next(new httpError('Authentication failed!', 403));
   }
 };
 

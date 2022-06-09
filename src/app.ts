@@ -6,6 +6,7 @@ import limiter from './middlewares/rateLimiter'
 import repoRoutes from './routes/repoRoutes';
 import httpError from './utils/errorHandler/http-errors';
 import { HttpError } from 'http-errors';
+import { RequestInterface } from './utils/interface';
 
 const app: Express = express();
 
@@ -16,7 +17,7 @@ app.use(helmet());
 app.use('/api/v1', limiter);
 
 app.use(express.json({ limit: '10kb' }));
-app.use((req: any, res: Response, next: NextFunction) => {
+app.use((req: RequestInterface, res: Response, next: NextFunction) => {
   req.requestTime = new Date().toISOString();
   next();
 });
@@ -34,9 +35,8 @@ app.all('*', (req: Request) => {
   throw error;
 });
 
-
-app.use((error: HttpError, req: Request, res: any, next: NextFunction) => {
-  if (res.headerSent) {
+app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
+  if (res.headersSent) {
     return next(error);
   }
 

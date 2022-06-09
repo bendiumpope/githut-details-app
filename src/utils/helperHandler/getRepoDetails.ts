@@ -1,4 +1,5 @@
 import { Octokit } from "@octokit/rest";
+import { ResponseInterface, RepoPathInterface } from 'src/utils/interface';
 
 export const getSingleRepoDetails = async (
   octokit: Octokit,
@@ -15,11 +16,12 @@ export const getSingleRepoDetails = async (
 };
 
 
-export const structureResponse = async (repositoryDetails, repositories) => {
+export const structureResponse = async (
+  repositoryDetails,
+  repositories: string[]
+): Promise<ResponseInterface[]> => {
 
-  
   return repositoryDetails.map((repoDetail, index) => {
-    
     return {
       repoName: getOwnerRepositoryName(repositories[index]).repoName,
       repoDescription: repoDetail.data.description,
@@ -29,8 +31,7 @@ export const structureResponse = async (repositoryDetails, repositories) => {
 };
 
 
-const getOwnerRepositoryName = (repoPath: string) => {
-  
+const getOwnerRepositoryName = (repoPath: string): RepoPathInterface => {
   const pathValues: string[] = repoPath.split('/');
 
   return {
