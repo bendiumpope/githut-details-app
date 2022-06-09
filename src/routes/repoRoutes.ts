@@ -7,7 +7,7 @@ import repoDetailValidator from '../middlewares/repoDetailsValidator';
 
 const router = express.Router();
 
-router.get('/github/repo_info', repoDetailValidator, protect, getRepoDetails);
+router.post('/github/repo_info', repoDetailValidator, protect, getRepoDetails);
 // router.get('/github/repo_info',protect, getRepoDetails);
 
 export default router;

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { Octokit } from '@octokit/rest';
 import HttpError from '../utils/errorHandler/http-errors';
+
 import {
   getSingleRepoDetails,
   structureResponse,
@@ -38,21 +39,16 @@ export const getRepoDetails = async (
       repositories
     );
 
-    // if (data.length < 1) {
-    //   return res.status(404).json({
-    //     message: `The Repository ${repoName} is not found on ${owner}`,
-    //   });
-    // }
-
     return res.status(200).json({
       message: 'success',
       data: data,
     });
 
   } catch (error) {
-    const pathname = new URL(error.response.url).searchParams;
+    
 
-    if (error.status === 404) {
+    if (error?.status === 404) {
+      const pathname = new URL(error.response.url).searchParams;
       return next(
         new HttpError(
           `${pathname.get("owner")} does not exist on ${

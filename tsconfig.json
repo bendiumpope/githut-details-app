@@ -1,11 +1,26 @@
 {
-    "compilerOptions": {
-      "module": "commonjs",
-      "esModuleInterop": true,
-      "target": "es6",
-      "moduleResolution": "node",
-      "sourceMap": true,
-      "outDir": "dist",
-    },
-    "lib": ["es2015"]
+  "compilerOptions": {
+    "target": "es6",
+    "types": ["node", "jest"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "module": "es2020",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "noFallthroughCasesInSwitch": true,
+    "outDir": "./dist",
+    "sourceMap": false,
+    "rootDir": "./src"
+  },
+  "lib": ["es2020"],
+  "compileOnSave": true,
+  "include": ["src/**/*"],
+
+  "exclude": ["node_modules"]
 }
