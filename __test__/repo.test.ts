@@ -66,4 +66,18 @@ describe('Get Repo details', () => {
         });
     expect(res.statusCode).toEqual(404);
   });
+
+  test('should return 400 status for bad input format', async () => {
+    const res = await request(app)
+      .post('/api/v1/github/repo_info')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        repositories: [
+          'bendiumpope',
+          'bendiumpope/scratchcard-application-probation',
+          'bendiumpope/next-handle-backend',
+        ],
+      });
+    expect(res.statusCode).toEqual(400);
+  });
 });

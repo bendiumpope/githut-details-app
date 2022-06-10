@@ -43,7 +43,7 @@ export const getRepoDetails = async (
       const pathname: URLSearchParams = new URL(error.response.url).searchParams;
       return next(
         new HttpError(
-          `${pathname.get('owner')} does not exist on ${pathname.get('repo')}`,
+          `${pathname.get('repo')} does not exist on ${pathname.get('owner')}`,
           404
         )
       );

@@ -40,7 +40,6 @@ export const protect = async (
 
     next();
   } catch (error) {
-    // console.log(error);
     return next(new httpError('Authentication failed!', 403));
   }
 };
